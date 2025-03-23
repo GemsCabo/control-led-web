@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control LED</title>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+       <!-- Configuración Firebase -->
+    <script>
+        const firebaseConfig = {
+        apiKey: "AIzaSyC7j2Wz-991bNK49skyfFNDjCf0Y3bOeDU",
+        authDomain: "control-led-web-5905a.firebaseapp.com",
+        databaseURL: "https://control-led-web-5905a-default-rtdb.firebaseio.com",
+        projectId: "control-led-web-5905a",
+        storageBucket: "control-led-web-5905a.firebasestorage.app",
+        messagingSenderId: "1074588154745",
+        appId: "1:1074588154745:web:7e1a71cb1583dca030cda8"
+      };
+
+      // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = firebase.database();
+      
+    </script>
+    
+    
     <style>
       /* Estilos del botón (igual que en Google Sites) */
       body { font-family: Arial; text-align: center; padding: 20px; }
@@ -8,6 +34,9 @@
       #encender { background: #4CAF50; color: white; }
       #apagar { background: #f44336; color: white; }
     </style>
+
+  
+  
   </head>
   <body>
     <h2>Control del LED 1</h2>
