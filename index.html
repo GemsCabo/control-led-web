@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control LED</title>
     
-    <!-- Firebase -->
+    <!-- Firebase SDK (ORDEN CORRECTO) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
-       <!-- Configuración Firebase -->
+
+    <!-- Configuración Firebase -->
     <script>
-        const firebaseConfig = {
+      const firebaseConfig = {
         apiKey: "AIzaSyC7j2Wz-991bNK49skyfFNDjCf0Y3bOeDU",
         authDomain: "control-led-web-5905a.firebaseapp.com",
         databaseURL: "https://control-led-web-5905a-default-rtdb.firebaseio.com",
@@ -20,24 +21,19 @@
         appId: "1:1074588154745:web:7e1a71cb1583dca030cda8"
       };
 
-      // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = firebase.database();
-      
+      // Inicialización CORRECTA
+      const app = firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
     </script>
-    
-    
+
     <style>
-      /* Estilos del botón (igual que en Google Sites) */
       body { font-family: Arial; text-align: center; padding: 20px; }
       button { padding: 15px 30px; font-size: 18px; cursor: pointer; }
       #encender { background: #4CAF50; color: white; }
       #apagar { background: #f44336; color: white; }
     </style>
-
-  
-  
   </head>
+
   <body>
     <h2>Control del LED 2</h2>
     <button id="encender" onclick="cambiarEstado(1)">ENCENDER</button>
@@ -45,23 +41,26 @@
     <div id="estado"></div>
 
     <script>
-      function cambiarEstado(nuevoEstado) {
-        const url = "https://script.google.com/macros/library/d/1taFhtgV0Zwa5ZI2dX6mkRIpB50kak62AaG2yccip70PCX4xlkLaNG0pH/1"; // Pega aquí tu URL de Apps Script
-        const params = { state: nuevoEstado };
+      // Referencia a la base de datos
+      const ledRef = firebase.database().ref('foco/apagador');
 
-        fetch(url, {
-          method: 'POST',
-          body: new URLSearchParams(params),
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        })
-        .then(response => response.text())
-        .then(text => {
-          document.getElementById("estado").innerText = text;
-        })
-        .catch(error => {
-          document.getElementById("estado").innerText = "Error+: " + error;
-        });
+      // Función actualizada para Firebase
+      function cambiarEstado(nuevoEstado) {
+        ledRef.set(nuevoEstado)
+          .then(() => {
+            document.getElementById("estado").innerText = "Estado actualizado";
+          })
+          .catch(error => {
+            document.getElementById("estado").innerText = "Error: " + error.message;
+          });
       }
+
+      // Escuchar cambios en tiempo real
+      ledRef.on('value', (snapshot) => {
+        const estado = snapshot.val();
+        document.getElementById("estado").innerText = 
+          `Estado actual: ${estado === 1 ? "ENCENDIDO" : "APAGADO"}`;
+      });
     </script>
   </body>
 </html>
