@@ -21,8 +21,8 @@
     <h2>Control del Foco</h2>
     <img id="imagen-foco" src="foco-off.png" alt="Foco">
     <br>
-    <button onclick="cambiarEstado(1)">APAGAR </button>  
-    <button onclick="cambiarEstado(0)">ENCEDER</button>    
+    <button onclick="cambiarEstado(1)">ENCEDER </button>  
+    <button onclick="cambiarEstado(0)">APAGER</button>    
     <div id="estado"></div>
 
     <script>
@@ -62,11 +62,11 @@
         
         // Actualizar interfaz
         document.getElementById('imagen-foco').src = estado === 1 
-          ? 'foco-off.png'      
-          : 'foco-on.png';     
+          ? 'foco-on.png'      
+          : 'foco-off.png';     
         
         document.getElementById('estado').textContent = 
-          `Estado: ${estado === 1 ? 'APAGADO' : 'ENCEDIDO'}`;   
+          `Estado: ${estado === 1 ? 'ENCENDIDO' : 'APAGADO'}`;   
       });
     </script>
   </body>
